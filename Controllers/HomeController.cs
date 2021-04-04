@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CCardoso.SalesWeb.Models;
+using CCardoso.SalesWeb.Models.ViewModels;
 
 namespace CCardoso.SalesWeb.Controllers
 {

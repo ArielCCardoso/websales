@@ -1,6 +1,6 @@
 using System;
 
-namespace CCardoso.SalesWeb.Models
+namespace CCardoso.SalesWeb.Models.ViewModels
 {
     public class ErrorViewModel
     {
