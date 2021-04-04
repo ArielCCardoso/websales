@@ -38,7 +38,7 @@ namespace CCardoso.SalesWeb
 
             services.AddDbContext<SalesWebContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("SalesWebContext"));
+                options.UseNpgsql(Configuration.GetConnectionString("SalesWebContext"), builder => builder.MigrationsAssembly("SalesWeb"));
             });
         }
 
