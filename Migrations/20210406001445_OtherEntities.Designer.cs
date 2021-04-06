@@ -3,15 +3,17 @@ using System;
 using CCardoso.SalesWeb.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace CCardoso.SalesWeb.Migrations
 {
     [DbContext(typeof(SalesWebContext))]
-    partial class SalesWebContextModelSnapshot : ModelSnapshot
+    [Migration("20210406001445_OtherEntities")]
+    partial class OtherEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
