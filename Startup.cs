@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using CCardoso.SalesWeb.Data;
+using CCardoso.SalesWeb.Services;
 
 namespace CCardoso.SalesWeb
 {
@@ -42,6 +43,7 @@ namespace CCardoso.SalesWeb
             });
 
             services.AddScoped<SeedingService>();
+            services.AddScoped<SellerService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
