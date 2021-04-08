@@ -40,7 +40,7 @@ namespace CCardoso.SalesWeb.Migrations
 
                     b.Property<DateTime>("Date");
 
-                    b.Property<int>("SalesStatus");
+                    b.Property<int>("SaleStatus");
 
                     b.Property<int?>("SellerId");
 

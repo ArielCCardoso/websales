@@ -8,17 +8,17 @@ namespace CCardoso.SalesWeb.Models
         public int Id { get; set; }
         public DateTime Date { get; set; }
         public double Amount { get; set; }
-        public SalesStatus SalesStatus { get; set; }
+        public SaleStatus SaleStatus { get; set; }
         public Seller Seller { get; set; }
 
         public SalesRecord() { }
 
-        public SalesRecord(int id, DateTime date, double amount, SalesStatus salesStatus, Seller seller)
+        public SalesRecord(int id, DateTime date, double amount, SaleStatus saleStatus, Seller seller)
         {
             Id = id;
             Date = date;
             Amount = amount;
-            SalesStatus = salesStatus;
+            SaleStatus = saleStatus;
             Seller = seller;
         }
     }
