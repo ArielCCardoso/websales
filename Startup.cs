@@ -40,7 +40,8 @@ namespace CCardoso.SalesWeb
             services.AddDbContext<SalesWebContext>(options =>
             {
                 options.UseNpgsql(Configuration.GetConnectionString("SalesWebContext"), builder => builder.MigrationsAssembly("SalesWeb"));
-            });
+                
+            }).AddLogging();
 
             services.AddScoped<SeedingService>();
             services.AddScoped<SellerService>();
