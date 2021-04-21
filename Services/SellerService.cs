@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CCardoso.SalesWeb.Data;
 using CCardoso.SalesWeb.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CCardoso.SalesWeb.Services
 {
@@ -27,7 +28,9 @@ namespace CCardoso.SalesWeb.Services
         }
         public Seller FindById(int id)
         {
-            return _context.Seller.FirstOrDefault(seller => seller.Id == id);
+            return _context.Seller
+                            .Include(s => s.Department)
+                            .FirstOrDefault(seller => seller.Id == id);
         }
 
         public void Remove(int id)

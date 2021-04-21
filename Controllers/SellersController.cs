@@ -41,7 +41,7 @@ namespace CCardoso.SalesWeb.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return BadRequest();
             }
 
             Seller seller = _sellerService.FindById(id.Value);
@@ -61,6 +61,22 @@ namespace CCardoso.SalesWeb.Controllers
             //AcceptedAtAction(nameof(Delete));
             return RedirectToAction(nameof(Index));
             //return AcceptedAtAction(nameof(Index)).ExecuteResultAsync(ControllerContext);
+        }
+
+        public IActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return BadRequest();
+            }
+
+            Seller seller = _sellerService.FindById(id.Value);
+            if (seller == null)
+            {
+                return NotFound();
+            }
+
+            return View(seller);
         }
     }
 }
