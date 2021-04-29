@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Globalization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
@@ -40,7 +42,7 @@ namespace CCardoso.SalesWeb
             services.AddDbContext<SalesWebContext>(options =>
             {
                 options.UseNpgsql(Configuration.GetConnectionString("SalesWebContext"), builder => builder.MigrationsAssembly("SalesWeb"));
-                
+
             }).AddLogging();
 
             services.AddScoped<SeedingService>();
@@ -61,6 +63,19 @@ namespace CCardoso.SalesWeb
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+
+            app.UseRequestLocalization(_ =>
+            {
+                var c = new List<CultureInfo>();
+                c.Add(CultureInfo.CurrentCulture);
+                c.Add(CultureInfo.InvariantCulture);
+                // _.DefaultRequestCulture = new RequestCulture(CultureInfo.CurrentCulture);
+                //_.SupportedCultures = new List<CultureInfo> { CultureInfo.CurrentCulture };
+                //_.SupportedUICultures = new List<CultureInfo> { CultureInfo.CurrentCulture };
+                _.DefaultRequestCulture = new RequestCulture(CultureInfo.CurrentCulture);
+                _.SupportedCultures = c;
+                _.SupportedUICultures = c;
+            });
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
