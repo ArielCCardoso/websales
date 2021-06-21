@@ -63,10 +63,17 @@ namespace CCardoso.SalesWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
-            await _sellerService.RemoveAsync(id);
-            //AcceptedAtAction(nameof(Delete));
-            return RedirectToAction(nameof(Index));
-            //return AcceptedAtAction(nameof(Index)).ExecuteResultAsync(ControllerContext);
+            try
+            {
+                await _sellerService.RemoveAsync(id);
+                //AcceptedAtAction(nameof(Delete));
+                return RedirectToAction(nameof(Index));
+                //return AcceptedAtAction(nameof(Index)).ExecuteResultAsync(ControllerContext);
+            }
+            catch(IntegrityException e)
+            {
+                return RedirectToAction(nameof(Error), new { message = e.Message });
+            }
         }
 
         public async Task<IActionResult> Details(int? id)
