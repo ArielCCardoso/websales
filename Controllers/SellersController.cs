@@ -22,35 +22,35 @@ namespace CCardoso.SalesWeb.Controllers
             _departmentService = departmentService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View(_sellerService.FindAll());
+            return View(await _sellerService.FindAllAsync());
         }
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            var _ = new SellerFormViewModel { Departments = _departmentService.FindAll() };
+            var _ = new SellerFormViewModel { Departments = await _departmentService.FindAllAsync() };
             return View(_);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Seller seller)
+        public async Task<IActionResult> Create(Seller seller)
         {
             if (!ModelState.IsValid)
             {
-                return View(new SellerFormViewModel { Departments = _departmentService.FindAll() });
+                return View(new SellerFormViewModel { Departments = await _departmentService.FindAllAsync() });
             }
-            _sellerService.Insert(seller);
+            await _sellerService.InsertAsync(seller);
             return RedirectToAction(nameof(Index));
         }
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id not provided" });
             }
 
-            Seller seller = _sellerService.FindById(id.Value);
+            Seller seller = await _sellerService.FindByIdAsync(id.Value);
             if (seller == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id not found" });
@@ -61,22 +61,22 @@ namespace CCardoso.SalesWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            _sellerService.Remove(id);
+            await _sellerService.RemoveAsync(id);
             //AcceptedAtAction(nameof(Delete));
             return RedirectToAction(nameof(Index));
             //return AcceptedAtAction(nameof(Index)).ExecuteResultAsync(ControllerContext);
         }
 
-        public IActionResult Details(int? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id not provided" });
             }
 
-            Seller seller = _sellerService.FindById(id.Value);
+            Seller seller = await _sellerService.FindByIdAsync(id.Value);
             if (seller == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id not found" });
@@ -84,31 +84,31 @@ namespace CCardoso.SalesWeb.Controllers
 
             return View(seller);
         }
-        public IActionResult Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id not provided" }); ;
             }
 
-            var seller = _sellerService.FindById(id.Value);
+            var seller = await _sellerService.FindByIdAsync(id.Value);
             if (seller == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id not found" });
             }
 
-            List<Department> departments = _departmentService.FindAll();
+            List<Department> departments = await _departmentService.FindAllAsync();
             SellerFormViewModel viewModel = new SellerFormViewModel { Seller = seller, Departments = departments };
             return View(viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, Seller seller)
+        public async Task<IActionResult> Edit(int id, Seller seller)
         {
             if (!ModelState.IsValid)
             {
-                return View(new SellerFormViewModel { Seller = seller, Departments = _departmentService.FindAll() });
+                return View(new SellerFormViewModel { Seller = seller, Departments = await _departmentService.FindAllAsync() });
             }
             if (id != seller.Id)
             {
@@ -116,7 +116,7 @@ namespace CCardoso.SalesWeb.Controllers
             }
             try
             {
-                _sellerService.Update(seller);
+                await _sellerService.UpdateAsync(seller);
                 return RedirectToAction(nameof(Index));
             }
             catch (NotFoundException e)

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using CCardoso.SalesWeb.Data;
 using CCardoso.SalesWeb.Models;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace CCardoso.SalesWeb.Services
 {
@@ -14,9 +16,9 @@ namespace CCardoso.SalesWeb.Services
             _context = context;
         }
 
-        public List<Department> FindAll()
+        public async Task<List<Department>> FindAllAsync()
         {
-            return _context.Department.OrderBy(d => d.Name).ToList();
+            return await _context.Department.OrderBy(d => d.Name).ToListAsync();
         }
     }
 }
